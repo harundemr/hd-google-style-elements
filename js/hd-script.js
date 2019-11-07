@@ -32,19 +32,7 @@ function hdInit(){
     }
 
     /*Select*/
-    var selectDivList = document.querySelectorAll(".hd-input-textarea-div");
-    var selectElementList = document.querySelectorAll(".hd-input-textarea");
-
-    for(var i = 0; i < selectDivList.length; i++)
-    {
-        selectDivList[i].setAttribute("onclick", "hdTextAreaFocusIn(this)");
-        selectDivList[i].setAttribute("onfocusout", "hdTextAreaFocusOut(this)");
-    }
-
-    for(var i = 0; i < selectElementList.length; i++)
-    {
-        selectElementList[i].setAttribute("onfocusin", "hdTextAreaFocusIn(this.parentElement)");
-    }
+    hdSelectInit();
 }
 
 function hdTextFocusIn(e){
@@ -102,4 +90,83 @@ function hdTextAreaFocusOut(e){
 
     input.focusout();
 }
+
+function hdSelectInit(){
+    var x, i, j, selElmnt, a, b, c;
+    x = document.getElementsByClassName("hd-select");
+    var abc = document.querySelector('.hd-input-text'); 
+    
+    for (i = 0; i < x.length; i++) {
+      
+        selElmnt = x[i].getElementsByTagName("select")[0];
+        
+        a = document.createElement("div");
+        a.setAttribute("class", "hd-select-selected");
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        x[i].appendChild(a);  
+    
+        b = document.createElement("div");
+        b.setAttribute("class", "hd-select-items hd-select-hide");
+    
+        for (j = 0; j < selElmnt.length; j++) {
+            
+            c = document.createElement("div");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function(e) { //seçim değiştirildiğinde
+                
+                var y, i, k, s, h;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                h = this.parentNode.previousSibling;
+    
+                for (i = 0; i < s.length; i++) {
+    
+                    if (s.options[i].innerHTML == this.innerHTML) {
+                        
+                        s.selectedIndex = i;
+                        h.innerHTML = this.innerHTML;
+                        y = this.parentNode.getElementsByClassName("hd-same-as-selected");
+    
+                        for (k = 0; k < y.length; k++) {
+                            y[k].removeAttribute("class");
+                        }
+    
+                        this.setAttribute("class", "hd-same-as-selected");
+                        break;
+                    }
+                }
+                h.click();
+            });
+            b.appendChild(c); 
+        }
+        x[i].appendChild(b);
+        a.addEventListener("click", function(e) {
+          e.stopPropagation();
+          closeAllSelect(this);
+          this.nextSibling.classList.toggle("hd-select-hide");
+          this.classList.toggle("hd-select-arrow-active");              
+        });
+    
+    }
+    function closeAllSelect(elmnt) {
+        
+        var x, y, i, arrNo = [];
+        x = document.getElementsByClassName("hd-select-items");
+        y = document.getElementsByClassName("hd-select-selected");
+        for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("hd-select-arrow-active");
+            }
+        }
+        for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add("hd-select-hide");
+            }
+        }
+    }
+    
+    document.addEventListener("click", closeAllSelect);
+}
+
 hdInit();
