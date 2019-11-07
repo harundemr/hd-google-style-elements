@@ -108,7 +108,7 @@ function hdSelectInit(){
         b = document.createElement("div");
         b.setAttribute("class", "hd-select-items hd-select-hide");
     
-        for (j = 0; j < selElmnt.length; j++) {
+        for (j = 1; j < selElmnt.length; j++) {
             
             c = document.createElement("div");
             c.innerHTML = selElmnt.options[j].innerHTML;
