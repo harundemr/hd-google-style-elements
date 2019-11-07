@@ -145,3 +145,44 @@ body{
 .hd-select-arrow-active{
   border: 2px solid #1a73e8;
 }
+
+/* button */
+.hd-button{
+  height: 35px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.hd-button-colored{
+  height: 100%;
+  min-width: 88px;
+  padding: 0 8px;
+  margin:4px;
+  background-color: #1a73e8;
+  border:0;
+  border-radius: 4px;
+  color:#fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  outline:none;
+}
+.hd-button-colorless{
+  height: 100%;
+  min-width: 88px;
+  padding: 0 8px;
+  margin:4px;
+  background-color: #fff;
+  border:1px solid #dadce0;
+  border-radius: 4px;
+  color:#1a73e8;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color .2s .1s;
+  outline:none;
+}
+.hd-button-colorless:hover{
+  background-color: #e8f0fe;
+  border: 1px solid #d2e3fc;
+}
